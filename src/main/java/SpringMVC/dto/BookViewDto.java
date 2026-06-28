@@ -1,4 +1,10 @@
 package SpringMVC.dto;
 
-public record BookViewDto() {
+import java.time.LocalDate;
+
+public record BookViewDto(
+        String name,
+        String author,
+        LocalDate createdAt
+) {
 }

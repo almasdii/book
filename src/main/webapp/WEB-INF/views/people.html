@@ -8,7 +8,7 @@
 <body>
 <h1>People : </h1>
 <div th:each="person : ${people}">
-    <p th:text="${person.name} ${person.born}"></p>
+    <a th:href="@{/people/{id}(id=${person.id()})}" th:text="${person.name()+ ' ' + person.born()}"></a>
 </div>
 <br>
 <a th:href="@{/people/new}">Add new Person</a>

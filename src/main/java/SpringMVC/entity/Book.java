@@ -21,9 +21,9 @@ public class Book {
     private String author;
 
     @Column(name = "created_at",updatable = false,nullable = false)
-    private LocalDate localDate;
+    private LocalDate createdAt;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "person_id")
     private Person person;
 

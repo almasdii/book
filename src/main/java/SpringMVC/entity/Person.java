@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,12 +18,19 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name",updatable = false,nullable = false)
+    @Setter
+    @Column(name = "name",nullable = false)
     private String name;
 
-    @Column(name = "born",nullable = false,updatable = false)
+    @Setter
+    @Column(name = "born",nullable = false)
     private LocalDate born;
 
     @OneToMany(mappedBy = "person",fetch = FetchType.LAZY)
     private List<Book> books;
+
+    public Person(String name,LocalDate born){
+        this.name = name;
+        this.born = born;
+    }
 }
