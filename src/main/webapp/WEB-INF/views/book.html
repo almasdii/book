@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Info</title>
+</head>
+<body>
+<p th:text="${book.name()} + ' ' + ${book.author()} + ' ' + ${book.createdAt()}"></p>
+
+<div th:if="${book.person() == null}">
+    <p>This book is available. Do you want to choose for someone?</p>
+    <form th:action="@{/books/{id}(id=${book.id()})}" th:method="patch" th:object="${book}">
+        <label for="person">Select person</label>
+
+        <select id="person" name="person">
+            <option th:each="person : ${people}" th:value="${person.id()}" th:text="${person.name()}"></option>
+        </select>
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+<div th:if="${book.person() != null}">
+    <h2>Selected By :</h2>
+    <p th:text="${book.person().name()}"></p>
+    <form th:action="@{/books/{id}/free(id=${book.id()})}" th:method="patch">
+        <p>set Available</p>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+</body>
+</html>

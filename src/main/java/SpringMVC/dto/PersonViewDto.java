@@ -1,15 +1,14 @@
 package SpringMVC.dto;
 
-import SpringMVC.entity.Book;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public record PersonViewDto(
         Long id,
         String name,
-        LocalDate born,
-        List<BookViewDto> books
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+        LocalDate born
 )
 {
 }

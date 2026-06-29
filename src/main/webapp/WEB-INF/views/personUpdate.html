@@ -9,10 +9,10 @@
 <h1>Person Info</h1>
 <form th:method="patch" th:action="@{/people/{id}(id=${person.id()})}" th:object="${person}">
     <label for="firstName">First Name</label>
-    <input id="firstName" type="text" th:field="*{name}" th:value="*{name}" placeholder="Name">
+    <input id="firstName" type="text" th:field="*{name}"  placeholder="Name">
 
     <label for="yearOfBirth">year of birth</label>
-    <input id="yearOfBirth" type="date" th:field="*{born}" th:value="*{born}" placeholder="yearOfBirth">
+    <input id="yearOfBirth" type="date" th:field="*{born}" placeholder="yearOfBirth">
 
     <input type="submit" value="Submit">
 </form>

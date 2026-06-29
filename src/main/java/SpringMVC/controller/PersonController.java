@@ -53,6 +53,7 @@ public class PersonController {
     @GetMapping("/{id}/edit")
     public String updatePage(Model model,@PathVariable("id") Long id){
         PersonViewDto personViewDto = personService.find(id);
+        log.debug("Person in edit : {} " , personViewDto);
         model.addAttribute("person",personViewDto);
         return "personUpdate";
     }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
@@ -23,9 +24,16 @@ public class Book {
     @Column(name = "created_at",updatable = false,nullable = false)
     private LocalDate createdAt;
 
+    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "person_id")
     private Person person;
+
+    public Book(String name,String author,LocalDate createdAt){
+        this.name = name;
+        this.author = author;
+        this.createdAt = createdAt;
+    }
 
 
 }

@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring",uses = BookMapper.class)
 public interface PersonMapper  {
     PersonDto fromPersonToPersonDto(Person person);
     List<PersonDto> fromListPersonToPersonDto(List<Person> personList);
@@ -21,7 +21,6 @@ public interface PersonMapper  {
     PersonViewDto fromPersonToPersonViewDto(Person person);
     @Mapping(target = "name",source = "name")
     @Mapping(target = "born",source = "born")
-    @Mapping(target = "books",ignore = true)
     Person fromPersonViewDtoToPerson(PersonViewDto personViewDto);
     List<PersonViewDto> fromPersonListToPersonViewDtoList(List<Person> personList);
 }
