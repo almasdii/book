@@ -1,9 +1,8 @@
 package SpringMVC.controller;
 
-import SpringMVC.dao.BookDao;
-import SpringMVC.dto.BookDto;
-import SpringMVC.dto.BookViewDto;
-import SpringMVC.dto.PersonViewDto;
+import SpringMVC.dto.BookDetailsView;
+import SpringMVC.dto.BookSummaryView;
+import SpringMVC.dto.PersonSummaryView;
 import SpringMVC.service.BookService;
 import SpringMVC.service.PersonService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,41 +19,37 @@ import java.util.List;
 @RequestMapping("/books")
 public class BookController {
     private final BookService service;
-    private final BookDao bookDao;
     private final PersonService personService;
-    private final BookService bookService;
 
     @Autowired
-    public BookController(BookService service, BookDao bookDao, PersonService personService, BookService bookService) {
+    public BookController(BookService service, PersonService personService) {
         this.service = service;
-        this.bookDao = bookDao;
         this.personService = personService;
-        this.bookService = bookService;
     }
 
     @GetMapping
     public String booksPage(Model model){
-        List<BookViewDto> all = service.findAll();
+        List<BookSummaryView> all = service.findAll();
         model.addAttribute("books",all);
         return "books";
     }
 
     @GetMapping("/new")
-    public String newBookPage(@ModelAttribute("book") BookDto bookDto){
+    public String newBookPage(@ModelAttribute("book") BookSummaryView bookSummaryView){
         return "newBook";
     }
 
     @PostMapping
-    public String newBook(@ModelAttribute("book") BookDto bookDto){
-        service.save(bookDto);
+    public String newBook(@ModelAttribute("book") BookSummaryView bookSummaryView){
+        service.save(bookSummaryView);
         return "redirect:/books";
     }
 
     @GetMapping("/{id}")
     public String bookPage(Model model, @PathVariable("id") Long id){
-        BookViewDto bookViewDto = service.find(id);
-        List<PersonViewDto> all = personService.findAll();
-        model.addAttribute("book",bookViewDto);
+        BookDetailsView bookDetailsView = service.find(id);
+        List<PersonSummaryView> all = personService.findAll();
+        model.addAttribute("book", bookDetailsView);
         model.addAttribute("people",all);
         return "book";
     }

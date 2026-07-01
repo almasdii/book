@@ -2,8 +2,8 @@ package SpringMVC.service;
 
 import SpringMVC.dao.BookDao;
 import SpringMVC.dao.PersonDao;
-import SpringMVC.dto.BookDto;
-import SpringMVC.dto.BookViewDto;
+import SpringMVC.dto.BookDetailsView;
+import SpringMVC.dto.BookSummaryView;
 import SpringMVC.entity.Book;
 import SpringMVC.entity.Person;
 import SpringMVC.exception.BookNotFoundException;
@@ -30,17 +30,17 @@ public class BookService {
         this.personDao = personDao;
     }
 
-    public List<BookViewDto> findAll() {
+    public List<BookSummaryView> findAll() {
         List<Book> all = bookDao.findAll();
-        return mapper.fromBookListToBookViewDtoList(all);
+        return mapper.fromBookListToBookSummaryViewList(all);
     }
 
-    public void save(BookDto bookDto) {
-        Book book = mapper.fromBookDtoToBook(bookDto);
+    public void save(BookSummaryView bookSummaryView) {
+        Book book = mapper.fromBookDtoToBook(bookSummaryView);
         Book save = bookDao.save(book);
     }
 
-    public BookViewDto find(Long id) {
+    public BookDetailsView find(Long id) {
         Book book = bookDao.find(id)
                 .orElseThrow(() -> new BookNotFoundException("Book not found with this id"));
         return mapper.fromBookToBookViewDto(book);

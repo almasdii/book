@@ -2,10 +2,10 @@ package SpringMVC.dto;
 
 import java.time.LocalDate;
 
-public record BookViewDto(
+public record BookDetailsView(
         Long id,
         String name,
         String author,
         LocalDate createdAt,
-        PersonSelectDto person
+        PersonSummaryView person
 ){}

@@ -1,7 +1,8 @@
 package SpringMVC.mapper;
 
-import SpringMVC.dto.PersonDto;
-import SpringMVC.dto.PersonViewDto;
+import SpringMVC.dto.PersonCreateRequest;
+import SpringMVC.dto.PersonDetailsView;
+import SpringMVC.dto.PersonSummaryView;
 import SpringMVC.entity.Person;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -10,17 +11,20 @@ import java.util.List;
 
 @Mapper(componentModel = "spring",uses = BookMapper.class)
 public interface PersonMapper  {
-    PersonDto fromPersonToPersonDto(Person person);
-    List<PersonDto> fromListPersonToPersonDto(List<Person> personList);
+    PersonCreateRequest fromPersonToPersonDto(Person person);
+    List<PersonCreateRequest> fromListPersonToPersonDto(List<Person> personList);
 
     @Mapping(target = "name",source = "name")
     @Mapping(target = "born",source = "born")
-    Person fromPersonDtoToPerson(PersonDto personDto);
+    Person fromPersonDtoToPerson(PersonCreateRequest personCreateRequest);
 
 
-    PersonViewDto fromPersonToPersonViewDto(Person person);
+    PersonSummaryView fromPersonToPersonViewDto(Person person);
     @Mapping(target = "name",source = "name")
     @Mapping(target = "born",source = "born")
-    Person fromPersonViewDtoToPerson(PersonViewDto personViewDto);
-    List<PersonViewDto> fromPersonListToPersonViewDtoList(List<Person> personList);
+    Person fromPersonViewDtoToPerson(PersonSummaryView personSummaryView);
+    List<PersonSummaryView> fromPersonListToPersonViewDtoList(List<Person> personList);
+
+
+    PersonDetailsView personToPersonShowDto(Person person);
 }

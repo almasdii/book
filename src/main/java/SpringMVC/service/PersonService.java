@@ -1,14 +1,13 @@
 package SpringMVC.service;
 
 import SpringMVC.dao.PersonDao;
-import SpringMVC.dto.PersonDto;
-import SpringMVC.dto.PersonViewDto;
+import SpringMVC.dto.PersonCreateRequest;
+import SpringMVC.dto.PersonDetailsView;
+import SpringMVC.dto.PersonSummaryView;
 import SpringMVC.entity.Person;
 import SpringMVC.exception.PersonNotFoundException;
 import SpringMVC.mapper.PersonMapper;
 import SpringMVC.mapper.PersonMapperImpl;
-import jakarta.transaction.Transactional;
-import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,29 +23,30 @@ public class PersonService {
         this.personDao = personDao;
         this.mapper = mapper;
     }
-    public List<PersonViewDto> findAll() {
+    public List<PersonSummaryView> findAll() {
         List<Person> all = personDao.findAll();
         return mapper.fromPersonListToPersonViewDtoList(all);
     }
 
-    public void save(PersonDto personDto) {
-        Person person = mapper.fromPersonDtoToPerson(personDto);
+    public void save(PersonCreateRequest personCreateRequest) {
+        Person person = mapper.fromPersonDtoToPerson(personCreateRequest);
         personDao.save(person);
     }
 
-    public PersonViewDto find(Long id) {
+    public PersonDetailsView find(Long id) {
         Person person = personDao.find(id)
                 .orElseThrow(() -> new PersonNotFoundException("Person Doesnt exist with this id"));
-        return mapper.fromPersonToPersonViewDto(person);
+        return mapper.personToPersonShowDto(person);
 
     }
 
-    public void update(Long id, PersonViewDto personViewDto) {
-        Person person = mapper.fromPersonViewDtoToPerson(personViewDto);
+    public void update(Long id, PersonSummaryView personSummaryView) {
+        Person person = mapper.fromPersonViewDtoToPerson(personSummaryView);
         personDao.update(id,person);
     }
 
     public void delete(Long id) {
         personDao.delete(id);
     }
+
 }

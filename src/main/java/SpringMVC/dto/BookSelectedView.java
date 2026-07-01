@@ -4,11 +4,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
-public record PersonViewDto(
-        Long id,
+public record BookSelectedView(
         String name,
+        String author,
         @DateTimeFormat(pattern = "yyyy-MM-dd")
-        LocalDate born
-)
-{
+        LocalDate createdAt
+) {
 }
